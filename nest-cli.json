@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/nest-cache/src",
+  "monorepo": true,
+  "root": "apps/nest-cache",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/nest-cache/tsconfig.app.json"
+  },
+  "projects": {
+    "nest-cache": {
+      "type": "application",
+      "root": "apps/nest-cache",
+      "entryFile": "main",
+      "sourceRoot": "apps/nest-cache/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/nest-cache/tsconfig.app.json"
+      }
+    },
+    "caching": {
+      "type": "application",
+      "root": "apps/caching",
+      "entryFile": "main",
+      "sourceRoot": "apps/caching/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/caching/tsconfig.app.json"
+      }
+    }
+  }
+}
