@@ -16,10 +16,24 @@ import { Rating, RatingSchema } from './rating/rating.model';
 import { Celeb, CelebSchema } from './celeb/celeb.model';
 import { Movie, MovieSchema } from './movie/movie.model';
 import { Principal, PrincipalSchema } from './principals/principals.model';
+import { redisStore } from 'cache-manager-redis-store';
 
 @Module({
   imports: [
-    CacheModule.register({ isGlobal: true }),
+    CacheModule.register({
+      isGlobal: true,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      store: async () =>
+        await redisStore({
+          socket: {
+            host: 'localhost',
+            port: 6379,
+          },
+        }),
+      host: 'localhost',
+      port: 6379,
+    }),
     MongooseModule.forRoot('mongodb://localhost:27700/movie'),
     MongooseModule.forFeature([
       { name: Rating.name, schema: RatingSchema },
