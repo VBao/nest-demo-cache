@@ -1,23 +1,17 @@
-import {
-  Controller,
-  Get,
-  Post,
-  UseInterceptors,
-  CacheInterceptor,
-} from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
-import { CelebService } from './celeb/celeb.service';
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private readonly celebService: CelebService,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
-  @UseInterceptors(CacheInterceptor)
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('/limit/:limit')
+  async getAll(@Param('limit') limit: number) {
+    return await this.appService.getLimit(+limit);
   }
 }
